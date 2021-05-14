@@ -75,7 +75,7 @@ final class SearchResult
             foreach($this->news_arr as $news){
                 $echo_stmt .= "<tr><td>$news->letter_num</td>";
                 $echo_stmt .= "<td>$news->topic</td>";
-                $echo_stmt .= "<td><a>$news->url</a></td></tr>";
+                $echo_stmt .= "<td><a href='$news->url' target='_blank'>$news->url</a></td></tr>";
             }
             $echo_stmt .= "</table>\n";
         }

@@ -8,10 +8,10 @@ final class SearchResult
     private $news_arr;
     private $drug_arr;
 
-    function __construct() {
+    function __construct($input) {
         // set all attributes only if the param is from search
-        if (isset($_POST['search'])) {
-            $this->param = $_POST['search'];
+        if (isset($input)) {
+            $this->param = $input;
             $this->url = "https://dev.tiapp.org/api/v1/api.php?s=$this->param";
             // $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);

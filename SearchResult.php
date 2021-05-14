@@ -20,7 +20,7 @@ final class SearchResult
             $this->news_arr = $this->json->newsletters;
             $this->drug_arr = $this->json->drugs;
         } else {
-            $this->param = "hi";
+            $this->param = "null";
         }
     }
 
@@ -65,7 +65,7 @@ final class SearchResult
     public function creatingNewsletterTable()
     {
         $echo_stmt = "<h3>Related Newsletters</h3>";
-        if (count($this->news_arr) == 0) {
+        if (count($this->news_arr) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related newsletters has been found</h4>";
         } else {
             $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
@@ -86,7 +86,7 @@ final class SearchResult
     public function creatingDrugTable()
     {
         $echo_stmt = "<h3>Related Drugs</h3>";
-        if (count($this->drug_arr) == 0) {
+        if (count($this->drug_arr) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related drugs has been found</h4>";
         } else {
             $echo_stmt .= "<table width='100%' class='table table-striped'>\n";

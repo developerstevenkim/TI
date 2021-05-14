@@ -1,7 +1,6 @@
 <?php
-include("../inc_header.php");
-include("../start_db.php"); 
-include("../inc_db_params.php");
+include("./inc_header.php");
+include("./inc_db_params.php");
 ?>
 
 <h1>Search Result</h1>
@@ -67,4 +66,4 @@ if (isset($search)) {
 ?>
 
 <br />
-<?php include("../inc_footer.php"); ?>
+<?php include("./inc_footer.php"); ?>

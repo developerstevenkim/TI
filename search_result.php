@@ -1,5 +1,5 @@
 <?php
-include("../inc_header.php");
+include("./inc_header.php");
 include("./SearchResult.php");
 
 $searchResult = new SearchResult();
@@ -11,5 +11,5 @@ echo "<hr>";
 $searchResult->creatingDrugTable();
 
 
-include("../inc_footer.php");
+include("./inc_footer.php");
 ?>

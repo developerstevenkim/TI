@@ -1,5 +1,5 @@
 <?php
-include("../inc_header.php");
+include("./inc_header.php");
 
 ?>
 <h1>Search</h1>
@@ -8,4 +8,4 @@ include("../inc_header.php");
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 </form>
 
-<?php include("../inc_footer.php"); ?>
+<?php include("./inc_footer.php"); ?>

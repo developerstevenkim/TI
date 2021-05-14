@@ -12,8 +12,8 @@ final class SearchResult
         // set all attributes only if the param is from search
         if (isset($_POST['search'])) {
             $this->param = $_POST['search'];
-            // $this->url = "https://dev.tiapp.org/api/v1/api.php?s=$this->param";
-            $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
+            $this->url = "https://dev.tiapp.org/api/v1/api.php?s=$this->param";
+            // $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);
             $response = utf8_decode($response);
             $this->json = json_decode($response);

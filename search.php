@@ -2,11 +2,21 @@
 include("./inc_header.php");
 include("./SearchResult.php");
 ?>
-<h1>Search</h1>
+<table style="width:100%; margin-top:10px;">
+      <tr>
+            <td>
+                  <h1 style="margin:0px;">Search</h1>
+            </td>
+            <td>
+                  <img src="./images/TI_logo.png" height="50px" style="float:right; margin-right:50px;">
+            </td>
+      </tr>
+</table>
 <form class="form-inline my-2 my-lg-0" style="margin:10px" method="POST" >
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search_input">
       <button class="btn btn-small btn-primary" type="submit" name="search">Search</button>
       <button class="btn btn-small btn-warning" name="clean" onClick="history.go(0);">Clear</button>
+      <hr/>
 </form>
 
 <?php
@@ -15,20 +25,11 @@ $input = "";
 if(isset($_POST['search'])){ //check if form was submitted
       $input = $_POST['search_input']; //get input text
 
+      echo "<h4 style='text-align:center;'>Showing result for <span style='color:red'>$input</span> </h4>";
       $searchResult = new SearchResult($input);
-
       $searchResult->creatingNewsletterTable();
-
-      echo "<hr>";
-
+      echo "<hr/>";
       $searchResult->creatingDrugTable();
-
 }
-
-function clearInput() {
-      $input = "";
-}
-
 ?>
-
 <?php include("./inc_footer.php"); ?>

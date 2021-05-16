@@ -29,6 +29,7 @@ final class SearchResult
             $this->message = $this->json->status->message;
         } else {
             $this->param = "null";
+            echo "test";
         }
     }
 

@@ -5,20 +5,28 @@ final class SearchResult
     private $url;
     private $param;
     private $json;
-    private $news_arr;
     private $drug_arr;
+    private $news_arr;
+    private $adv_arr;
+    private $noc_arr;
+    private $pharma_arr;
+    private $message;
 
     function __construct($input) {
         // set all attributes only if the param is from search
         if (isset($input)) {
             $this->param = $input;
-            $this->url = "https://dev.tiapp.org/api/v1/api.php?s=$this->param";
-            // $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
+            // $this->url = "https://dev.tiapp.org/api/v2/api.php?s=$this->param";
+            $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);
             $response = utf8_decode($response);
             $this->json = json_decode($response);
-            $this->news_arr = $this->json->newsletters;
             $this->drug_arr = $this->json->drugs;
+            $this->news_arr = $this->json->newsletters;
+            $this->adv_arr = $this->json->advisories;
+            $this->noc_arr = $this->json->nocs;
+            $this->pharma_arr = $this->json->pharmacare;
+            $this->message = $this->json->status->message;
         } else {
             $this->param = "null";
         }
@@ -47,62 +55,110 @@ final class SearchResult
         return $this->json;
     }
 
-    // to get newsletter as array
-    public function getNewsletterArr()
-    {
-        // attributes list -> letter_num, topic, url
-        return $this->news_arr;
-    }
-
     // to get drug as array
     public function getDrugArr()
     {
-        // attributes list -> id, code, name, parent_id
+        // attributes -> id, code, name, type, parent_id, parent_cd
         return $this->drug_arr;
+    }
+
+    // to get newsletter as array
+    public function getNewsletterArr()
+    {
+        // attributes -> letter_num, topic, url
+        return $this->news_arr;
+    }
+
+    // to get advisory as array
+    public function getAdvisoryArr()
+    {
+        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
+        return $this->adv_arr;
+    }
+
+    // to get NOC as array
+    public function getNocArr()
+    {
+        // attributes-> drug_cd, noc_num, noc_date, noc_act_stat, noc_eng_reason
+        return $this->noc_arr;
+    }
+
+    // to get pharmacare as array
+    public function getPharmaArr()
+    {
+        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
+        return $this->pharma_arr;
+    }
+
+    // to get message
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    public function creatingTable($item, $str_table) {
+        $table_column = $this->{$str_table}[0];
+        $table = $this->{$str_table};
+        $echo_stmt = "";
+        $echo_stmt = "<h3>Related $item's</h3>";
+        if (count($table) == 0 && $this->param != "null") {
+            $echo_stmt .= "<h4>No related $item has been found</h4>";
+            return $echo_stmt;
+        } else {
+            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+
+            $column_names = array();
+            $echo_stmt .= "<tr>";
+            while($element = current($table_column)) {
+                $current_column = key($table_column);
+                array_push($column_names, key($table_column));
+                $current_column = strtoupper($current_column);
+                $echo_stmt .= "<th>$current_column</th>";
+                next($table_column);
+            }
+            $echo_stmt .= "</tr>";
+
+            // add all lines
+            foreach($table as $item){
+                $echo_stmt .= "<tr>";
+                foreach($column_names as $column) {
+                    $current_column = $item->{$column};
+                    $echo_stmt .= "<td>$current_column</td>";
+                }
+                $echo_stmt .= "</tr>";
+            }
+            $echo_stmt .= "</table>";
+        }
+        return $echo_stmt;
+    }
+
+    // create drug table
+    public function creatingDrugTable() {
+        echo $this->creatingTable("Drug", "drug_arr");
     }
 
     // create newsletter
     public function creatingNewsletterTable()
     {
-        $echo_stmt = "<h3>Related Newsletters</h3>";
-        if (count($this->news_arr) == 0 && $this->param != "null") {
-            $echo_stmt .= "<h4>No related newsletters has been found</h4>";
-        } else {
-            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-            $echo_stmt .= "<tr><th>News#</th>".
-                "<th>Topic</th>".
-                "<th>URL</th>\n";
-            foreach($this->news_arr as $news){
-                $echo_stmt .= "<tr><td>$news->letter_num</td>";
-                $echo_stmt .= "<td>$news->topic</td>";
-                $echo_stmt .= "<td><a href='$news->url' target='_blank'>$news->url</a></td></tr>";
-            }
-            $echo_stmt .= "</table>\n";
-        }
-        echo $echo_stmt;
+        echo $this->creatingTable("News", "news_arr");
     }
 
-    // create drug table
-    public function creatingDrugTable()
+    // create newsletter
+    public function creatingAdvTable()
     {
-        $echo_stmt = "<h3>Related Drugs</h3>";
-        if (count($this->drug_arr) == 0 && $this->param != "null") {
-            $echo_stmt .= "<h4>No related drugs has been found</h4>";
-        } else {
-            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-            $echo_stmt .= "<tr><th>Drug#</th>".
-                "<th>Code</th>".
-                "<th>Name</th>".
-                "<th>Parent_id</th>\n";
-            foreach($this->drug_arr as $drug){
-                $echo_stmt .= "<tr><td>$drug->id</td>";
-                $echo_stmt .= "<td>$drug->code</td>";
-                $echo_stmt .= "<td>$drug->name</td>";
-                $echo_stmt .= "<td>$drug->parent_id</td></tr>";
-            }
-            $echo_stmt .= "</table>";
-        }
-        echo $echo_stmt;
+        echo $this->creatingTable("Advisory", "adv_arr");
+    }
+
+    // create newsletter
+    public function creatingNocTable()
+    {
+        echo $this->creatingTable("NOC", "noc_arr");
+    }
+
+    // create pharmacare
+    public function creatingPharmacareTable()
+    {
+        echo $this->creatingTable("Pharmacare", "pharma_arr");
     }
 }
 

@@ -1,6 +1,7 @@
 #content {
     position: relative;
 }
+
 #content img {
     position: absolute;
     top: 0px;
@@ -8,4 +9,13 @@
     height: 50px;
 }
 
-span.name { color:#FF0000;font-weight:bold;font-family:Tahoma;font-size:20 }
+span.name {
+    color:#FF0000;
+    font-weight:bold;
+    font-family:Tahoma;
+    font-size:20 
+}
+
+h4 {
+    text-align:center;
+}

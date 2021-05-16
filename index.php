@@ -25,11 +25,22 @@ $input = "";
 if(isset($_POST['search'])){ //check if form was submitted
       $input = $_POST['search_input']; //get input text
 
-      echo "<h4 style='text-align:center;'>Showing result for <span style='color:red'>$input</span> </h4>";
       $searchResult = new SearchResult($input);
+      $message = $searchResult->getMessage();
+      echo "<h4 style=text-align:center;>Showing result for
+                   <span style='color:red'>$input</span>.";
+      echo "<h4 style=text-align:center;> $message </h4>";
       $searchResult->creatingNewsletterTable();
       echo "<hr/>";
       $searchResult->creatingDrugTable();
+      echo "<hr/>";
+      $searchResult->creatingAdvTable();
+      echo "<hr/>";
+      $searchResult->creatingNocTable();
+      echo "<hr/>";
+      $searchResult->creatingPharmacareTable();
+
+      
 }
 ?>
 <?php include("./inc_footer.php"); ?>

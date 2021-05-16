@@ -102,6 +102,7 @@ final class SearchResult
         $echo_stmt = "";
         $echo_stmt = "<h3>Related $item's</h3>";
         if (count($table) == 0 && $this->param != "null") {
+            echo count($table);
             $echo_stmt .= "<h4>No related $item has been found</h4>";
             return $echo_stmt;
         } else {

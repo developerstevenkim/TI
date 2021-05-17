@@ -29,7 +29,6 @@ final class SearchResult
             $this->message = $this->json->status->message;
         } else {
             $this->param = "null";
-            echo "test";
         }
     }
 
@@ -101,7 +100,7 @@ final class SearchResult
         $table_column = $this->{$str_table}[0];
         $table = $this->{$str_table};
         $echo_stmt = "";
-        $echo_stmt = "<h3>Related $item's</h3>";
+        $echo_stmt = "<h3>Related $item</h3>";
         if (count($table) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related $item has been found</h4>";
             return $echo_stmt;
@@ -135,31 +134,31 @@ final class SearchResult
 
     // create drug table
     public function creatingDrugTable() {
-        echo $this->creatingTable("Drug", "drug_arr");
+        echo $this->creatingTable("Drugs", "drug_arr");
     }
 
     // create newsletter
     public function creatingNewsletterTable()
     {
-        echo $this->creatingTable("News", "news_arr");
+        echo $this->creatingTable("Newsletters", "news_arr");
     }
 
     // create newsletter
     public function creatingAdvTable()
     {
-        echo $this->creatingTable("Advisory", "adv_arr");
+        echo $this->creatingTable("Advisories", "adv_arr");
     }
 
     // create newsletter
     public function creatingNocTable()
     {
-        echo $this->creatingTable("NOC", "noc_arr");
+        echo $this->creatingTable("NOCs", "noc_arr");
     }
 
     // create pharmacare
     public function creatingPharmacareTable()
     {
-        echo $this->creatingTable("Pharmacare", "pharma_arr");
+        echo $this->creatingTable("Pharmacare data", "pharma_arr");
     }
 }
 

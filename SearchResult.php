@@ -24,7 +24,6 @@ final class SearchResult
             $this->drug_arr = $this->json->drugs;
             $this->news_arr = $this->json->newsletters;
             $this->adv_arr = $this->json->advisories;
-            $this->noc_arr = $this->json->nocs;
             $this->pharma_arr = $this->json->pharmacare;
             $this->message = $this->json->status->message;
         } else {
@@ -132,6 +131,57 @@ final class SearchResult
         return $echo_stmt;
     }
 
+    public function creatingAdvisoryTable($item, $str_table) {
+        // $UK = "UK";
+        // $CA = "CA";
+        // $UK = "UK";
+        // $AUS = "AUS";
+        // echo gettype($this);
+        // echo gettype($this->{$str_table});
+        // echo gettype($this->{$str_table}->$UK);
+
+        // $echo_stmt = "";
+        // $echo_stmt = "<h3>Related $item</h3>";
+        // if (count($table) == 0 && $this->param != "null") {
+        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
+        //     return $echo_stmt;
+        // } else {
+        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+        //     foreach($this->{$str_table} as $item){
+        //         $echo_stmt .= "<tr>";
+        //         $echo_stmt .= "<td>$item</td>";
+        //         $echo_stmt .= "</tr>";
+        //     }
+        // $echo_stmt .= "</table>";
+
+
+
+        // echo gettype($this->{$str_table}->$UK);
+        // echo gettype($this->{$str_table}->$UK);
+        // $table_column = $this->{$str_table}[0];
+        // $table = $this->{$str_table};
+        // $echo_stmt = "";
+        // $echo_stmt = "<h3>Related $item</h3>";
+        // if (count($table) == 0 && $this->param != "null") {
+        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
+        //     return $echo_stmt;
+        // } else {
+        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+
+        //     $column_names = array();
+        //     $echo_stmt .= "<tr>";
+        //     while($element = current($table_column)) {
+        //         $current_column = key($table_column);
+        //         array_push($column_names, key($table_column));
+        //         $current_column = strtoupper($current_column);
+        //         $echo_stmt .= "<th>$current_column</th>";
+        //         next($table_column);
+        //     }
+        //     $echo_stmt .= "</tr>";
+
+        // return $echo_stmt;
+    }
+
     // create drug table
     public function creatingDrugTable() {
         echo $this->creatingTable("Drugs", "drug_arr");
@@ -146,13 +196,8 @@ final class SearchResult
     // create newsletter
     public function creatingAdvTable()
     {
-        echo $this->creatingTable("Advisories", "adv_arr");
-    }
-
-    // create newsletter
-    public function creatingNocTable()
-    {
-        echo $this->creatingTable("NOCs", "noc_arr");
+        // Advisory data format is changed from Array to Object ["US", "CA", "UK", "AUS"]
+        echo $this->creatingAdvisoryTable("Advisories", "adv_arr");
     }
 
     // create pharmacare

@@ -34,11 +34,9 @@ if(isset($_POST['search'])){ //check if form was submitted
       echo "<hr/>";
       $searchResult->creatingDrugTable();
       echo "<hr/>";
-      $searchResult->creatingAdvTable();
-      echo "<hr/>";
-      $searchResult->creatingNocTable();
-      echo "<hr/>";
       $searchResult->creatingPharmacareTable();
+      echo "<hr/>";
+      $searchResult->creatingAdvTable();
 
       
 }

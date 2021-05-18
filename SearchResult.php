@@ -132,20 +132,21 @@ final class SearchResult
     }
 
     public function creatingAdvisoryTable($item, $str_table) {
-        // $UK = "UK";
-        // $CA = "CA";
-        // $UK = "UK";
-        // $AUS = "AUS";
-        // echo gettype($this);
-        // echo gettype($this->{$str_table});
-        // echo gettype($this->{$str_table}->$UK);
+        $US = "US";
+        $UK = "UK";
+        $CA = "CA";
+        $AUS = "AUS";
+        echo gettype($this);
+        echo gettype($this->{$str_table});
+        echo gettype($this->{$str_table}->$UK);
 
-        // $echo_stmt = "";
-        // $echo_stmt = "<h3>Related $item</h3>";
-        // if (count($table) == 0 && $this->param != "null") {
-        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
-        //     return $echo_stmt;
-        // } else {
+        $echo_stmt = "";
+        $echo_stmt = "<h3>Related $item</h3>";
+        if ($this->param == "null") {
+            $echo_stmt .= "<h4>No related $item has been found</h4>";
+            return $echo_stmt;
+        } 
+        // else {
         //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
         //     foreach($this->{$str_table} as $item){
         //         $echo_stmt .= "<tr>";
@@ -153,6 +154,7 @@ final class SearchResult
         //         $echo_stmt .= "</tr>";
         //     }
         // $echo_stmt .= "</table>";
+        return $echo_stmt;
 
 
 

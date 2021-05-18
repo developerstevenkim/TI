@@ -76,13 +76,6 @@ final class SearchResult
         return $this->adv_arr;
     }
 
-    // to get NOC as array
-    public function getNocArr()
-    {
-        // attributes-> drug_cd, noc_num, noc_date, noc_act_stat, noc_eng_reason
-        return $this->noc_arr;
-    }
-
     // to get pharmacare as array
     public function getPharmaArr()
     {

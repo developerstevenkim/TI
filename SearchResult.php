@@ -122,11 +122,11 @@ final class SearchResult
                 $echo_stmt .= "<tr>";
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
-                    // if ($column == "url") {
-                    //     $echo_stmt .= "<td><a href='$current_column'>$current_column</a></td>";
-                    // } else {
+                    if ($column == "url") {
+                        $echo_stmt .= "<td><a href='$current_column'>$current_column</a></td>";
+                    } else {
                     $echo_stmt .= "<td>$current_column</td>";
-                    // }
+                    }
                     
                 }
                 $echo_stmt .= "</tr>";

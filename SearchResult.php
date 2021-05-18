@@ -146,14 +146,16 @@ final class SearchResult
             $echo_stmt .= "<h4>No related $item has been found</h4>";
             return $echo_stmt;
         } 
-        // else {
-        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-        //     foreach($this->{$str_table} as $item){
-        //         $echo_stmt .= "<tr>";
-        //         $echo_stmt .= "<td>$item</td>";
-        //         $echo_stmt .= "</tr>";
-        //     }
-        // $echo_stmt .= "</table>";
+        else {
+            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+            foreach($this->{$str_table} as $item){
+                $echo_stmt .= "<tr>";
+                $echo_stmt .= "<td>$item</td>";
+                $echo_stmt .= "</tr>";
+            }
+            $echo_stmt .= "</table>";
+        }
+
         return $echo_stmt;
 
 

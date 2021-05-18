@@ -16,6 +16,7 @@ final class SearchResult
         // set all attributes only if the param is from search
         if (isset($input)) {
             $this->param = $input;
+            $this->param = rawurlencode($this->param);
             // $this->url = "https://dev.tiapp.org/api/v2/api.php?s=$this->param";
             $this->url = "http://dev.tiapp.org/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);

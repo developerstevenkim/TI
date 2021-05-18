@@ -122,7 +122,12 @@ final class SearchResult
                 $echo_stmt .= "<tr>";
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
+                    // if ($column == "url") {
+                    //     $echo_stmt .= "<td><a href='$current_column'>$current_column</a></td>";
+                    // } else {
                     $echo_stmt .= "<td>$current_column</td>";
+                    // }
+                    
                 }
                 $echo_stmt .= "</tr>";
             }
@@ -136,27 +141,34 @@ final class SearchResult
         $UK = "UK";
         $CA = "CA";
         $AUS = "AUS";
-        echo gettype($this);
+        // echo gettype($this);
+        // echo gettype($this->{$str_table});
+        // echo gettype($this->{$str_table}->$UK);
+        $combined_array = array_merge($this->{$str_table}->$CA, $this->{$str_table}->$US, $this->{$str_table}->$UK, $this->{$str_table}->$AUS);
+        $this->{$str_table} = $combined_array;
+
         echo gettype($this->{$str_table});
-        echo gettype($this->{$str_table}->$UK);
+        // echo $item;
+        // echo $str_table;
+        return $this->creatingTable($item, $str_table);
 
-        $echo_stmt = "";
-        $echo_stmt = "<h3>Related $item</h3>";
-        if ($this->param == "null") {
-            $echo_stmt .= "<h4>No related $item has been found</h4>";
-            return $echo_stmt;
-        } 
-        else {
-            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-            foreach($this->{$str_table} as $item){
-                $echo_stmt .= "<tr>";
-                $echo_stmt .= "<td>$item</td>";
-                $echo_stmt .= "</tr>";
-            }
-            $echo_stmt .= "</table>";
-        }
+        // $echo_stmt = "";
+        // $echo_stmt = "<h3>Related $item</h3>";
+        // if ($this->param == "null") {
+        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
+        //     return $echo_stmt;
+        // } 
+        // else {
+        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+        //     foreach($this->{$str_table} as $item){
+        //         $echo_stmt .= "<tr>";
+        //         $echo_stmt .= "<td>$item</td>";
+        //         $echo_stmt .= "</tr>";
+        //     }
+        //     $echo_stmt .= "</table>";
+        // }
 
-        return $echo_stmt;
+        // return $echo_stmt;
 
 
 

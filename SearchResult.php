@@ -8,7 +8,6 @@ final class SearchResult
     private $drug_arr;
     private $news_arr;
     private $adv_arr;
-    private $noc_arr;
     private $pharma_arr;
     private $message;
 
@@ -18,14 +17,14 @@ final class SearchResult
             $this->param = $input;
             $this->param = rawurlencode($this->param);
             // $this->url = "https://dev.tiapp.org/api/v2/api.php?s=$this->param";
-            $this->url = "http://dev.tiapp.org/api/v2/api.php?s=$this->param";
+            $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);
             $response = utf8_decode($response);
             $this->json = json_decode($response);
             $this->drug_arr = $this->json->drugs;
             $this->news_arr = $this->json->newsletters;
             $this->adv_arr = $this->json->advisories;
-            $this->pharma_arr = $this->json->pharmacare;
+            $this->pharma_arr = $this->json->BC_pharmacare;
             $this->message = $this->json->status->message;
         } else {
             $this->param = "null";
@@ -135,60 +134,9 @@ final class SearchResult
         $UK = "UK";
         $CA = "CA";
         $AUS = "AUS";
-        // echo gettype($this);
-        // echo gettype($this->{$str_table});
-        // echo gettype($this->{$str_table}->$UK);
         $combined_array = array_merge($this->{$str_table}->$CA, $this->{$str_table}->$US, $this->{$str_table}->$UK, $this->{$str_table}->$AUS);
         $this->{$str_table} = $combined_array;
-
-        // echo $item;
-        // echo $str_table;
         return $this->creatingTable($item, $str_table);
-
-        // $echo_stmt = "";
-        // $echo_stmt = "<h3>Related $item</h3>";
-        // if ($this->param == "null") {
-        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
-        //     return $echo_stmt;
-        // } 
-        // else {
-        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-        //     foreach($this->{$str_table} as $item){
-        //         $echo_stmt .= "<tr>";
-        //         $echo_stmt .= "<td>$item</td>";
-        //         $echo_stmt .= "</tr>";
-        //     }
-        //     $echo_stmt .= "</table>";
-        // }
-
-        // return $echo_stmt;
-
-
-
-        // echo gettype($this->{$str_table}->$UK);
-        // echo gettype($this->{$str_table}->$UK);
-        // $table_column = $this->{$str_table}[0];
-        // $table = $this->{$str_table};
-        // $echo_stmt = "";
-        // $echo_stmt = "<h3>Related $item</h3>";
-        // if (count($table) == 0 && $this->param != "null") {
-        //     $echo_stmt .= "<h4>No related $item has been found</h4>";
-        //     return $echo_stmt;
-        // } else {
-        //     $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-
-        //     $column_names = array();
-        //     $echo_stmt .= "<tr>";
-        //     while($element = current($table_column)) {
-        //         $current_column = key($table_column);
-        //         array_push($column_names, key($table_column));
-        //         $current_column = strtoupper($current_column);
-        //         $echo_stmt .= "<th>$current_column</th>";
-        //         next($table_column);
-        //     }
-        //     $echo_stmt .= "</tr>";
-
-        // return $echo_stmt;
     }
 
     // create drug table

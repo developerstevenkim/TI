@@ -18,7 +18,6 @@ include("./SearchResult.php");
       <button class="btn btn-small btn-warning" name="clean" onClick="history.go(0);">Clear</button>
       <hr/>
 </form>
-
 <?php
 $input = "";
 
@@ -37,8 +36,8 @@ if(isset($_POST['search'])){ //check if form was submitted
       $searchResult->creatingAdvTable();
       echo "<hr/>";
       $searchResult->creatingPharmacareTable();
-
-      
+      echo "<hr/>";
+      $searchResult->creatingHealthCanadaTable();
 }
 ?>
 <?php include("./inc_footer.php"); ?>

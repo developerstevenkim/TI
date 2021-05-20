@@ -9,6 +9,7 @@ final class SearchResult
     private $news_arr;
     private $adv_arr;
     private $pharma_arr;
+    private $health_arr;
     private $message;
 
     function __construct($input) {
@@ -25,6 +26,7 @@ final class SearchResult
             $this->news_arr = $this->json->newsletters;
             $this->adv_arr = $this->json->advisories;
             $this->pharma_arr = $this->json->BC_pharmacare;
+            $this->health_arr = $this->json->HealthCanada;
             $this->message = $this->json->status->message;
         } else {
             $this->param = "null";
@@ -82,6 +84,13 @@ final class SearchResult
         return $this->pharma_arr;
     }
 
+    // to get health Canada as array
+    public function getHealthArr()
+    {
+        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
+        return $this->health_arr;
+    }
+
     // to get message
     public function getMessage()
     {
@@ -105,7 +114,11 @@ final class SearchResult
                 $current_column = key($table_column);
                 array_push($column_names, key($table_column));
                 $current_column = strtoupper($current_column);
-                $echo_stmt .= "<th>$current_column</th>";
+                if ($current_column == "URL") {
+                    $echo_stmt .= "<th width='5%'>$current_column</th>";
+                } else {
+                    $echo_stmt .= "<th>$current_column</th>";
+                }
                 next($table_column);
             }
             $echo_stmt .= "</tr>";
@@ -116,7 +129,12 @@ final class SearchResult
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
                     if ($column == "url") {
-                        $echo_stmt .= "<td><a href='$current_column'>$current_column</a></td>";
+                        $echo_stmt .= "<td><a href='$current_column' title='$current_column' target='_blank'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
+                        <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>
+                        <path d='M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z'/>
+                        </svg>
+                        </a></td>";
                     } else {
                     $echo_stmt .= "<td>$current_column</td>";
                     }
@@ -162,6 +180,13 @@ final class SearchResult
     {
         echo $this->creatingTable("Pharmacare data", "pharma_arr");
     }
+
+    // create health canada
+    public function creatingHealthCanadaTable()
+    {
+        echo $this->creatingTable("Health Canada", "health_arr");
+    }
+
 }
 
 ?>

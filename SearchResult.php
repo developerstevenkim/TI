@@ -17,8 +17,8 @@ final class SearchResult
         if (isset($input)) {
             $this->param = $input;
             $this->param = rawurlencode($this->param);
-            $this->url = "https://dev.tiapp.org/api/v2/api.php?s=$this->param";
-            // $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
+            // $this->url = "https://dev.tiapp.org/api/v2/api.php?s=$this->param";
+            $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
             $response = file_get_contents($this->url);
             $response = utf8_decode($response);
             $this->json = json_decode($response);
@@ -107,11 +107,15 @@ final class SearchResult
             return $echo_stmt;
         } else {
             $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
-
             $column_names = array();
             $echo_stmt .= "<tr>";
+            // print_r($table_column);
+            var_dump($table_column);
             while($element = current($table_column)) {
                 $current_column = key($table_column);
+                // echo $current_column;
+                // echo "\n";
+                // echo "<h1>$element</h1>";
                 array_push($column_names, key($table_column));
                 $current_column = strtoupper($current_column);
                 if ($current_column == "URL") {

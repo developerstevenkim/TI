@@ -156,6 +156,10 @@ final class SearchResult
         $UK = "UK";
         $CA = "CA";
         $AUS = "AUS";
+        $this->{$str_table}->$CA = (array)$this->{$str_table}->$CA;
+        $this->{$str_table}->$US = (array)$this->{$str_table}->$US;
+        $this->{$str_table}->$UK = (array)$this->{$str_table}->$UK;
+        $this->{$str_table}->$AUS = (array)$this->{$str_table}->$AUS;
         $combined_array = array_merge($this->{$str_table}->$CA, $this->{$str_table}->$US, $this->{$str_table}->$UK, $this->{$str_table}->$AUS);
         $this->{$str_table} = $combined_array;
         return $this->creatingTable($item, $str_table);

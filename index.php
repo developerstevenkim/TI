@@ -37,7 +37,7 @@ if(isset($_POST['search'])){ //check if form was submitted
       echo "<hr/>";
       $searchResult->creatingPharmacareTable();
       echo "<hr/>";
-      $searchResult->creatingHealthCanadaTable();
+      // $searchResult->creatingHealthCanadaTable();
 }
 ?>
 <?php include("./inc_footer.php"); ?>

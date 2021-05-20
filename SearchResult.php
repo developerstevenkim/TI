@@ -109,17 +109,17 @@ final class SearchResult
             $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
             $column_names = array();
             $echo_stmt .= "<tr>";
-            // print_r($table_column);
-            var_dump($table_column);
-            while($element = current($table_column)) {
+            
+            while(($element = current($table_column)) !== FALSE) {
                 $current_column = key($table_column);
-                // echo $current_column;
-                // echo "\n";
-                // echo "<h1>$element</h1>";
                 array_push($column_names, key($table_column));
                 $current_column = strtoupper($current_column);
-                if ($current_column == "URL") {
-                    $echo_stmt .= "<th width='5%'>$current_column</th>";
+                if ($current_column == "URL"
+                 || $current_column == "SPECIAL AUTHORITY LINK"
+                 || $current_column == "INCLUDED_DRUGS"
+                 || $current_column == "MAX_DAYS_SUPPLY"
+                 || $current_column == "HISTORY_DATE") {
+                    $echo_stmt .= "<th>$current_column</th>";
                 } else {
                     $echo_stmt .= "<th>$current_column</th>";
                 }
@@ -132,7 +132,7 @@ final class SearchResult
                 $echo_stmt .= "<tr>";
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
-                    if ($column == "url") {
+                    if ($column == "url" || $column == "Special Authority Link") {
                         $echo_stmt .= "<td><a href='$current_column' title='$current_column' target='_blank'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
                         <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>

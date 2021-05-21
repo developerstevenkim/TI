@@ -164,7 +164,57 @@ final class SearchResult
         $this->{$str_table}->$AUS = (array)$this->{$str_table}->$AUS;
         $combined_array = array_merge($this->{$str_table}->$CA, $this->{$str_table}->$US, $this->{$str_table}->$UK, $this->{$str_table}->$AUS);
         $this->{$str_table} = $combined_array;
-        return $this->creatingTable($item, $str_table);
+        $table = $this->{$str_table};
+        $echo_stmt = "";
+        $echo_stmt = "<h3>Related $item</h3>";
+        if (count($table) == 0 && $this->param != "null") {
+            $echo_stmt .= "<h4>No related $item ";
+            $echo_stmt .= substr($item, -1) == "s" ? "have" : "has";
+            $echo_stmt .= " been found</h4>";
+            return $echo_stmt;
+        } else {
+            #code here
+
+            // Array ( [0] => published_date [1] => country [2] => title [3] => risk [4] => included_drugs [5] => url )
+            $publish = "published_date";
+            $country = "country";
+            $title = "title";
+            $risk = "risk";
+            $included_drugs = "included_drugs";
+            $url = "url";
+
+            // add all lines
+            $echo_stmt .= '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
+            foreach ($table as $item) {
+                $echo_stmt .= '<div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 >
+                                ';
+                $echo_stmt .= "TITLE - " . $item->$title;
+                $echo_stmt .= "<strong><a href='{$item->$url}' title='{$item->$url}' target='_blank'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
+                        <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>
+                        <path d='M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z'/>
+                        </svg>
+                        </a></strong>";
+                $echo_stmt .= '</h4></div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">';
+                $echo_stmt .= "</li><li>";
+                $echo_stmt .= $item->$country;
+                $echo_stmt .= "</li><li>RISK - ";
+                $echo_stmt .= $item->$risk;
+                if ($item->$included_drugs != "") {
+                    $echo_stmt .= "</li><li>INCLUDED_DRUGS [";
+                    $echo_stmt .= $item->$included_drugs."]";
+                }
+                $echo_stmt .= "<li>Published in ";
+                $echo_stmt .= $item->$publish;
+                $echo_stmt .= "</li></div></div></div>";
+            }
+            $echo_stmt .= "</div>";
+        }
+    return $echo_stmt;
     }
 
     // create drug table

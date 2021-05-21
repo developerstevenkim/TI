@@ -20,6 +20,7 @@ include("./SearchResult.php");
       <button class="btn btn-small btn-warning" name="clean" onClick="history.go(0);">Clear</button>
       <hr/>
 </form>
+
 <?php
 $input = "";
 

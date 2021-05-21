@@ -192,7 +192,7 @@ final class SearchResult
                                 <h5>
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#'.$_id.'" aria-expanded="false" aria-controls="collapseOne">
                                 ';
-                $echo_stmt .= "TITLE - " . $item->$title . "</a>";
+                $echo_stmt .= $item->$title . "</a>";
                 $echo_stmt .= "<strong><a href='{$item->$url}' title='{$item->$url}' target='_blank'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
                         <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>
@@ -203,10 +203,11 @@ final class SearchResult
                                 <div id='.$_id.' class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">';
                 $_id = $_id + 1;
+                $echo_stmt .= "</li><li><strong>";
+                $echo_stmt .= $item->$risk;
+                $echo_stmt .= "</strong>";
                 $echo_stmt .= "</li><li>";
                 $echo_stmt .= $item->$country;
-                $echo_stmt .= "</li><li>RISK - ";
-                $echo_stmt .= $item->$risk;
                 if ($item->$included_drugs != "") {
                     $echo_stmt .= "</li><li>INCLUDED_DRUGS [";
                     $echo_stmt .= $item->$included_drugs."]";

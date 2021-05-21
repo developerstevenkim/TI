@@ -103,7 +103,9 @@ final class SearchResult
         $echo_stmt = "";
         $echo_stmt = "<h3>Related $item</h3>";
         if (count($table) == 0 && $this->param != "null") {
-            $echo_stmt .= "<h4>No related $item has been found</h4>";
+            $echo_stmt .= "<h4>No related $item ";
+            $echo_stmt .= substr($item, -1) == "s" ? "have" : "has";
+            $echo_stmt .= " been found</h4>";
             return $echo_stmt;
         } else {
             $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
@@ -132,7 +134,7 @@ final class SearchResult
                 $echo_stmt .= "<tr>";
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
-                    if ($column == "url" || $column == "Special Authority Link") {
+                    if ($column == "url" || ($column == "Special Authority Link" && $current_column != "")) {
                         $echo_stmt .= "<td><a href='$current_column' title='$current_column' target='_blank'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
                         <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>

@@ -34,8 +34,8 @@ if(isset($_POST['search'])){ //check if form was submitted
       echo "<h4 style=text-align:center;> $message </h4>";
       $searchResult->creatingNewsletterTable();
       echo "<hr/>";
-      $searchResult->creatingDrugTable();
-      echo "<hr/>";
+      // $searchResult->creatingDrugTable();
+      // echo "<hr/>";
       $searchResult->creatingAdvTable();
       echo "<hr/>";
       $searchResult->creatingPharmacareTable();

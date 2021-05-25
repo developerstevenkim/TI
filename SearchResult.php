@@ -12,13 +12,18 @@ final class SearchResult
     private $message;
 
     function __construct($input) {
-        // set all attributes only if the param is from search
+        #===============================================
+        # Set SearchResult member variables by its URL generated with input parameter
+        # if instance is initialized with one parameter, it will find the right url and call setAPI function
+        # to set all values for its member variables.
+        # comment current url and uncomment localhost to test locally
+        #===============================================
         if (isset($input)) {
             $this->param = $input;
             $this->param = rawurlencode($this->param);
-            $this->url = "https://dev.tiapp.org/api/v3/api.php?s=$this->param";
-            // $this->url = "http://localhost:8080/api/v2/api.php?s=$this->param";
-            $this->setAPI();
+            $this->url = "https://dev.tiapp.org/api/v1/api.php?s=$this->param";
+            // $this->url = "http://localhost:8080/api/v1/api.php?s=$this->param";
+            $this->setAPI($this->url);
             
         } else {
             $this->param = "null";
@@ -28,9 +33,9 @@ final class SearchResult
     #===============================================
     # Set api's attributes by its URL
     #===============================================
-    public function setAPI()
+    public function setAPI($url)
     {
-        $response = file_get_contents($this->url);
+        $response = file_get_contents($url);
         $response = utf8_decode($response);
         $this->json = json_decode($response);
         $this->drug_arr = $this->json->drugs;
@@ -40,65 +45,95 @@ final class SearchResult
         $this->message = $this->json->status->message;
     }
 
-    // to get json data
+    #===============================================
+    # to get json data
+    #===============================================
     public function getJson()
     {
         return $this->json;
     }
 
-    // to get drug as array
+    #===============================================
+    # to get drug data
+    # attributes -> code, name, type, parent_cd
+    #===============================================
     public function getDrugArr()
     {
-        // attributes -> code, name, type, parent_cd
         return $this->drug_arr;
     }
 
-    // to get newsletter as array
+    #===============================================
+    # to get newsletter as array
+    # attributes -> letter_num, topic, url
+    #===============================================
     public function getNewsletterArr()
     {
-        // attributes -> letter_num, topic, url
         return $this->news_arr;
     }
 
-    // to get advisory as array
+    #===============================================
+    # to get advisory as array
+    # attributes-> published_date, country, type, title, risk, included_drugs, url
+    #===============================================
     public function getAdvisoryArr()
     {
-        // attributes-> published_date, country, type, title, risk, included_drugs, url
         return $this->adv_arr;
     }
 
-    // to get pharmacare as array
+    #===============================================
+    # to get pharmacare as array
+    # attributes-> din, brand_name, drug_name, plans, max_price, lca_price, max_days_supply, Special Authority Link, istory_date
+    #===============================================
     public function getPharmaArr()
     {
-        // attributes-> din, brand_name, drug_name, plans, max_price, lca_price, max_days_supply, Special Authority Link, istory_date
         return $this->pharma_arr;
     }
     
-    // to get message
+    #===============================================
+    # to get message
+    #===============================================
     public function getMessage()
     {
         return $this->message;
     }
 
-    // to get URL
+    #===============================================
+    # to get URL
+    #===============================================
     public function getUrl()
     {
         return $this->url;
     }
 
-    // to set URL to display more information
+    #===============================================
+    # to set URL to display more information
+    #===============================================
     public function advancedUrl()
     {
         $this->url .= "&ae&p";
-        $this->setAPI();
+        $this->setAPI($this->url);
     }
 
-    // to create table from user input
+    #===============================================
+    # to create table from user input
+    # this function can be used only if second parameter($str_table) contains directly key and value itself
+    # parameter : $item      -> String.
+    #                           Table's title
+    #             $str_table -> String.
+    #                           The name of array attributes
+    # return : echo statement which contains all the logics to generate table
+    #===============================================
     public function creatingTable($item, $str_table) {
+        // contains column names
         $table_column = $this->{$str_table}[0];
         $table = $this->{$str_table};
+
         $echo_stmt = "";
+
+        // title of the page
         $echo_stmt = "<h3>Related $item</h3>";
+
+        // if array contains 0 element or parameter is not given, display nothing and return echo statement
         if (count($table) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related $item ";
             $echo_stmt .= substr($item, -1) == "s" ? "have" : "has";
@@ -113,15 +148,7 @@ final class SearchResult
                 $current_column = key($table_column);
                 array_push($column_names, key($table_column));
                 $current_column = strtoupper($current_column);
-                if ($current_column == "URL"
-                 || $current_column == "SPECIAL AUTHORITY LINK"
-                 || $current_column == "INCLUDED_DRUGS"
-                 || $current_column == "MAX_DAYS_SUPPLY"
-                 || $current_column == "HISTORY_DATE") {
-                    $echo_stmt .= "<th>$current_column</th>";
-                } else {
-                    $echo_stmt .= "<th>$current_column</th>";
-                }
+                $echo_stmt .= "<th>$current_column</th>";
                 next($table_column);
             }
             $echo_stmt .= "</tr>";
@@ -150,7 +177,17 @@ final class SearchResult
         return $echo_stmt;
     }
 
+    #===============================================
+    # to create advisory table from user input
+    # the structure of advisory table is different because array contains subarray(US, UK, CA, AUS)
+    # parameter : $item      -> String.
+    #                           Table's title
+    #             $str_table -> String.
+    #                           The name of array attributes
+    # return : echo statement which contains all the logics to generate advisory table
+    #===============================================
     public function creatingAdvisoryTable($item, $str_table) {
+        // merge four arrays into one combined array
         $US = "US";
         $UK = "UK";
         $CA = "CA";
@@ -163,15 +200,17 @@ final class SearchResult
         $this->{$str_table} = $combined_array;
         $table = $this->{$str_table};
         $echo_stmt = "";
+
+        // title of the page
         $echo_stmt = "<h3>Related $item</h3>";
+
+        // if array contains 0 element or parameter is not given, display nothing and return echo statement
         if (count($table) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related $item ";
             $echo_stmt .= substr($item, -1) == "s" ? "have" : "has";
             $echo_stmt .= " been found</h4>";
             return $echo_stmt;
         } else {
-            #code here
-
             // Array ( [0] => published_date [1] => country [2] => title [3] => risk [4] => included_drugs [5] => url )
             $publish = "published_date";
             $country = "country";
@@ -184,6 +223,7 @@ final class SearchResult
             // add all lines
             $echo_stmt .= '<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">';
             foreach ($table as $item) {
+                // each advisory should have different id value to make it expandable
                 $echo_stmt .= '<div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                 <h5>
@@ -199,12 +239,14 @@ final class SearchResult
                 $echo_stmt .= '</h5></div>
                                 <div id='.$_id.' class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">';
+                // increment id value by 1
                 $_id = $_id + 1;
                 $echo_stmt .= "</li><li><strong>";
                 $echo_stmt .= $item->$risk;
                 $echo_stmt .= "</strong>";
                 $echo_stmt .= "</li><li>";
                 $echo_stmt .= $item->$country;
+                // some advisory has 'included_drugs' column. If so, display it
                 if ($item->$included_drugs != "") {
                     $echo_stmt .= "</li><li>INCLUDED_DRUGS [";
                     $echo_stmt .= $item->$included_drugs."]";
@@ -236,7 +278,7 @@ final class SearchResult
         echo $this->creatingAdvisoryTable("Advisories", "adv_arr");
     }
 
-    // create pharmacare
+    // create pharmacare data
     public function creatingPharmacareTable()
     {
         echo $this->creatingTable("Pharmacare data", "pharma_arr");

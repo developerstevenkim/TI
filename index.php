@@ -3,7 +3,9 @@ include("./inc_header.php");
 include("./SearchResult.php");
 ?>
 
-
+<!------------------------->
+<!--- Title of the page --->
+<!------------------------->
 <table style="width:100%; margin-top:10px;">
       <tr>
             <td>
@@ -15,6 +17,10 @@ include("./SearchResult.php");
       </tr>
 </table>
 </br>
+
+<!------------------------------>
+<!--- Search bar and buttons --->
+<!------------------------------>
 <form class="form-inline" style="margin:10px" method="POST" >
       <input class="form-control" style="width: 15vw;" type="search" placeholder="Ex: A02BC02, or pantoprazole" aria-label="Search" id="search" name="search_input">
       <button class="btn btn-small btn-primary" type="submit" name="search">Search</button>
@@ -26,23 +32,48 @@ include("./SearchResult.php");
       <hr/>
 </form>
 
+
+<!------------------------------------------->
+<!--- PHP code to process search function --->
+<!------------------------------------------->
 <?php
 $input = "";
 
-if(isset($_POST['search'])){ //check if form was submitted
-      $input = $_POST['search_input']; //get input text
+// check if form was submitted
+if(isset($_POST['search'])){ 
+      // get input text
+      $input = $_POST['search_input']; 
 
+      #===============================================
+      # Initialize SearchResult class 
+      #===============================================
       $searchResult = new SearchResult($input);
+
+      #===============================================
+      # Check if advanced search radio button is clicked
+      #===============================================
       if (isset($_POST['inlineRadioOptions'])) {
             $searchResult->advancedUrl();
       }
       $message = $searchResult->getMessage();
+
+      #===============================================
+      # Display input field value and searchResult's message attribute
+      #===============================================
       echo "<h4 style=text-align:center;>Showing result for
                    <span style='color:red'>$input</span>.";
       echo "<h4 style=text-align:center;> $message </h4>";
+
+      #===============================================
+      # Create Newsletter Table
+      #===============================================
       $searchResult->creatingNewsletterTable();
       echo "<hr/>";
 
+      #===============================================
+      # Create Expandable Advisory and Pharmacare tables
+      # With Bootstrap 
+      #===============================================
       if (isset($_POST['inlineRadioOptions'])) {
             $echo_stmt = '
             <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
@@ -87,8 +118,6 @@ if(isset($_POST['search'])){ //check if form was submitted
             echo $echo_stmt;
             echo "<hr/>";
       }
-
-      
 }
 ?>
 <?php include("./inc_footer.php"); ?>

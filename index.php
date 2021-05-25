@@ -81,7 +81,7 @@ if(isset($_POST['search'])){
                         <div class="panel-heading" role="tab" id="headingAdv">
                               <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseAdv" aria-expanded="false" aria-controls="collapseAdv">
-                                          Advisory data from Safer Project
+                                          Advisory data from SAFER Project
                                     </a>
                               </h4>
                         </div>

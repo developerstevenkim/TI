@@ -51,3 +51,6 @@ https://tiapp.azurewebsites.net/
 |----|-----|
 |Steven Dohun Kim|stevenkim1989@gmail.com|
 |Jakob Fipke|jakobtaze@gmail.com|
+|Jonathan Orfani|jonathanorfani@gmail.com|
+|Calvin Loungsay|calvin.loungsay@gmail.com|
+|Mike Huang|mikehuang123@hotmail.com|

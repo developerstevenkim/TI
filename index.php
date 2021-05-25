@@ -35,7 +35,6 @@ if(isset($_POST['search'])){ //check if form was submitted
       if (isset($_POST['inlineRadioOptions'])) {
             $searchResult->advancedUrl();
       }
-      echo $searchResult->getUrl();
       $message = $searchResult->getMessage();
       echo "<h4 style=text-align:center;>Showing result for
                    <span style='color:red'>$input</span>.";

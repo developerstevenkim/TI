@@ -9,7 +9,6 @@ final class SearchResult
     private $news_arr;
     private $adv_arr;
     private $pharma_arr;
-    private $health_arr;
     private $message;
 
     function __construct($input) {
@@ -26,6 +25,9 @@ final class SearchResult
         }
     }
 
+    #===============================================
+    # Set api's attributes by its URL
+    #===============================================
     public function setAPI()
     {
         $response = file_get_contents($this->url);
@@ -35,25 +37,7 @@ final class SearchResult
         $this->news_arr = $this->json->newsletters;
         $this->adv_arr = $this->json->advisories;
         $this->pharma_arr = $this->json->BC_pharmacare;
-        $this->health_arr = $this->json->HealthCanada;
         $this->message = $this->json->status->message;
-    }
-
-    // test purpose
-    public static function testing()
-    {
-        return "test";
-    }
-    // to get parameter passed in
-    public function getParam()
-    {
-        return $this->param;
-    }
-
-    // to get parameter passed in
-    public function getParam2()
-    {
-        return $this->param;
     }
 
     // to get json data
@@ -65,7 +49,7 @@ final class SearchResult
     // to get drug as array
     public function getDrugArr()
     {
-        // attributes -> id, code, name, type, parent_id, parent_cd
+        // attributes -> code, name, type, parent_cd
         return $this->drug_arr;
     }
 
@@ -79,41 +63,37 @@ final class SearchResult
     // to get advisory as array
     public function getAdvisoryArr()
     {
-        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
+        // attributes-> published_date, country, type, title, risk, included_drugs, url
         return $this->adv_arr;
     }
 
     // to get pharmacare as array
     public function getPharmaArr()
     {
-        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
+        // attributes-> din, brand_name, drug_name, plans, max_price, lca_price, max_days_supply, Special Authority Link, istory_date
         return $this->pharma_arr;
     }
-
-    // to get health Canada as array
-    public function getHealthArr()
-    {
-        // attributes-> id, country, published_date, type, title, risk, url, included_drugs
-        return $this->health_arr;
-    }
-
+    
     // to get message
     public function getMessage()
     {
         return $this->message;
     }
 
+    // to get URL
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    // to set URL to display more information
     public function advancedUrl()
     {
         $this->url .= "&ae&p";
         $this->setAPI();
     }
 
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
+    // to create table from user input
     public function creatingTable($item, $str_table) {
         $table_column = $this->{$str_table}[0];
         $table = $this->{$str_table};
@@ -261,13 +241,6 @@ final class SearchResult
     {
         echo $this->creatingTable("Pharmacare data", "pharma_arr");
     }
-
-    // create health canada
-    public function creatingHealthCanadaTable()
-    {
-        echo $this->creatingTable("Health Canada", "health_arr");
-    }
-
 }
 
 ?>

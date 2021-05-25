@@ -3,6 +3,7 @@ include("./inc_header.php");
 include("./SearchResult.php");
 ?>
 
+
 <table style="width:100%; margin-top:10px;">
       <tr>
             <td>

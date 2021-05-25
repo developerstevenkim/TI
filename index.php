@@ -18,6 +18,10 @@ include("./SearchResult.php");
       <input class="form-control" style="width: 15vw;" type="search" placeholder="Ex: A02BC02, or pantoprazole" aria-label="Search" id="search" name="search_input">
       <button class="btn btn-small btn-primary" type="submit" name="search">Search</button>
       <button class="btn btn-small btn-warning" name="clean" onClick="history.go(0);">Clear</button>
+      <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="advancedSearch">
+            <label class="form-check-label" for="inlineRadio1">Advanced Search</label>
+      </div>
       <hr/>
 </form>
 
@@ -28,19 +32,63 @@ if(isset($_POST['search'])){ //check if form was submitted
       $input = $_POST['search_input']; //get input text
 
       $searchResult = new SearchResult($input);
+      if (isset($_POST['inlineRadioOptions'])) {
+            $searchResult->advancedUrl();
+      }
+      echo $searchResult->getUrl();
       $message = $searchResult->getMessage();
       echo "<h4 style=text-align:center;>Showing result for
                    <span style='color:red'>$input</span>.";
       echo "<h4 style=text-align:center;> $message </h4>";
       $searchResult->creatingNewsletterTable();
       echo "<hr/>";
-      // $searchResult->creatingDrugTable();
-      // echo "<hr/>";
-      $searchResult->creatingAdvTable();
-      echo "<hr/>";
-      $searchResult->creatingPharmacareTable();
-      echo "<hr/>";
-      // $searchResult->creatingHealthCanadaTable();
+
+      if (isset($_POST['inlineRadioOptions'])) {
+            $echo_stmt = '
+            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingAdv">
+                              <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseAdv" aria-expanded="false" aria-controls="collapseAdv">
+                                          Advisory data from Safer Project
+                                    </a>
+                              </h4>
+                        </div>
+
+                        <div id="collapseAdv" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingAdv">
+                              <div class="panel-body">
+            ';
+            echo $echo_stmt;
+            $searchResult->creatingAdvTable();
+            $echo_stmt ='                 </div>
+                                    </div>
+                              </div>';
+            echo $echo_stmt;
+            echo "<hr/>";
+            $echo_stmt = '
+                  <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingPharma">
+                              <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePharma" aria-expanded="false" aria-controls="collapsePharma">
+                                          Pharmacare Data
+                                    </a>
+                              </h4>
+                        </div>
+
+                        <div id="collapsePharma" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPharma">
+                              <div class="panel-body">
+            ';
+            echo $echo_stmt;
+            $searchResult->creatingPharmacareTable();
+            $echo_stmt ='                 </div>
+                        </div>
+                  </div>
+            </div>';
+            echo $echo_stmt;
+            echo "<hr/>";
+      }
+
+      
 }
 ?>
 <?php include("./inc_footer.php"); ?>

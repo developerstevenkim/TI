@@ -130,9 +130,6 @@ final class SearchResult
 
         $echo_stmt = "";
 
-        // title of the page
-        $echo_stmt = "<h3>Related $item</h3>";
-
         // if array contains 0 element or parameter is not given, display nothing and return echo statement
         if (count($table) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related $item ";
@@ -140,7 +137,7 @@ final class SearchResult
             $echo_stmt .= " been found</h4>";
             return $echo_stmt;
         } else {
-            $echo_stmt .= "<table width='100%' class='table table-striped'>\n";
+            $echo_stmt .= "<table class='table table-striped w-auto'>\n";
             $column_names = array();
             $echo_stmt .= "<tr>";
             

@@ -12,7 +12,9 @@ include("./SearchResult.php");
                   <h2 style="margin:0px;">Therapeutics Initiative Assistant</h2>
             </td>
             <td>
-                  <img src="./images/TI_logo.png" height="50px" style="float:right; margin-right:50px;">
+                  <a href="https://dev.tiapp.org/newsletters/" target="_blank">
+                  <img src="./images/TI_logo.png" height="70px" style="float:right; margin-top:20px;">
+                  </a>
             </td>
       </tr>
 </table>
@@ -26,12 +28,7 @@ include("./SearchResult.php");
       <button class="btn btn-small btn-primary" type="submit" name="search">Search</button>
       <button class="btn btn-small btn-warning" name="clean">Clear</button>
       <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="advancedSearch"
-                  <?php
-                  $checked = "";
-                  echo $checked;
-                  ?>
-            >
+            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="advancedSearch">
             <label class="form-check-label" for="inlineRadio1">Advanced Search</label>
       </div>
       <hr/>
@@ -52,7 +49,6 @@ if(isset($_POST['clean'])){
       if ($checked == "checked") {
             // here
       }
-      echo $checked;
 }
 
 // check if form was submitted
@@ -79,11 +75,34 @@ if(isset($_POST['search'])){
       echo "<h4 style=text-align:center;>Showing result for
                    <span style='color:red'>$input</span>.";
       echo "<h4 style=text-align:center;> $message </h4>";
+      echo "<hr/";
 
       #===============================================
       # Create Newsletter Table
+      # With Bootstrap 
       #===============================================
+      $echo_stmt = '
+            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingNews">
+                              <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNews" aria-expanded="false" aria-controls="collapseNews">
+                                          Newsletter from Therapeutics Initiative
+                                    </a>
+                              </h4>
+                        </div>
+
+                        <div id="collapseNews" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingNews">
+                              <div class="panel-body">
+            ';
+      echo $echo_stmt;
+      
       $searchResult->creatingNewsletterTable();
+      $echo_stmt = '          </div>
+                        </div>
+                  </div>';
+      echo $echo_stmt;
+
       echo "<hr/>";
 
       #===============================================
@@ -92,7 +111,6 @@ if(isset($_POST['search'])){
       #===============================================
       if (isset($_POST['inlineRadioOptions'])) {
             $echo_stmt = '
-            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingAdv">
                               <h4 class="panel-title">
@@ -117,7 +135,7 @@ if(isset($_POST['search'])){
                         <div class="panel-heading" role="tab" id="headingPharma">
                               <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePharma" aria-expanded="false" aria-controls="collapsePharma">
-                                          Pharmacare Data
+                                          Pharmacare Data from Health Canada
                                     </a>
                               </h4>
                         </div>
@@ -127,7 +145,7 @@ if(isset($_POST['search'])){
             ';
             echo $echo_stmt;
             $searchResult->creatingPharmacareTable();
-            $echo_stmt ='                 </div>
+            $echo_stmt ='     </div>
                         </div>
                   </div>
             </div>';

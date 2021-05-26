@@ -24,9 +24,14 @@ include("./SearchResult.php");
 <form class="form-inline" style="margin:10px" method="POST" >
       <input class="form-control" style="width: 15vw;" type="search" placeholder="Ex: A02BC02, or pantoprazole" aria-label="Search" id="search" name="search_input">
       <button class="btn btn-small btn-primary" type="submit" name="search">Search</button>
-      <button class="btn btn-small btn-warning" name="clean" onClick="history.go(0);">Clear</button>
+      <button class="btn btn-small btn-warning" name="clean">Clear</button>
       <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="advancedSearch">
+            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="advancedSearch"
+                  <?php
+                  $checked = "";
+                  echo $checked;
+                  ?>
+            >
             <label class="form-check-label" for="inlineRadio1">Advanced Search</label>
       </div>
       <hr/>
@@ -38,6 +43,17 @@ include("./SearchResult.php");
 <!------------------------------------------->
 <?php
 $input = "";
+
+if(isset($_POST['clean'])){ 
+      if(isset($_POST['inlineRadioOptions'])) {
+            $checked="checked";
+      } 
+      $input = "";
+      if ($checked == "checked") {
+            // here
+      }
+      echo $checked;
+}
 
 // check if form was submitted
 if(isset($_POST['search'])){ 

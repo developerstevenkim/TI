@@ -24,7 +24,7 @@ Project is created with:
 	
 ## API source
 
-### * API is created by BCIT student, Jakob, Mike, Calvin, Jonathan, Steven *
+### * API is created by BCIT students Jakob, Mike, Calvin, Jonathan, and Steven *
 >_Replace $param with your keyword_
 
 * API URL for basic search

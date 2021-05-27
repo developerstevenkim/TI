@@ -198,9 +198,6 @@ final class SearchResult
         $table = $this->{$str_table};
         $echo_stmt = "";
 
-        // title of the page
-        $echo_stmt = "<h3>Related $item</h3>";
-
         // if array contains 0 element or parameter is not given, display nothing and return echo statement
         if (count($table) == 0 && $this->param != "null") {
             $echo_stmt .= "<h4>No related $item ";
@@ -224,15 +221,15 @@ final class SearchResult
                 $echo_stmt .= '<div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                 <h5>
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#'.$_id.'" aria-expanded="false" aria-controls="collapseOne">
+                                <a style="display: inline; vertical-align: middle;" role="button" data-toggle="collapse" data-parent="#accordion" href="#'.$_id.'" aria-expanded="false" aria-controls="collapseOne">
                                 ';
-                $echo_stmt .= $item->$title . "</a>";
-                $echo_stmt .= "<strong><a href='{$item->$url}' title='{$item->$url}' target='_blank'>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
+                $echo_stmt .= $item->$title . "</a>&nbsp;&nbsp;";
+                $echo_stmt .= "<a style='display: inline; vertical-align: middle;' href='{$item->$url}' title='{$item->$url}' target='_blank'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link float-right' viewBox='0 0 16 16'>
                         <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>
                         <path d='M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.82 1H12a3 3 0 1 0 0-6H9z'/>
                         </svg>
-                        </a></strong>";
+                        </a>";
                 $echo_stmt .= '</h5></div>
                                 <div id='.$_id.' class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">';
@@ -245,8 +242,8 @@ final class SearchResult
                 $echo_stmt .= $item->$country;
                 // some advisory has 'included_drugs' column. If so, display it
                 if ($item->$included_drugs != "") {
-                    $echo_stmt .= "</li><li>INCLUDED_DRUGS [";
-                    $echo_stmt .= $item->$included_drugs."]";
+                    $echo_stmt .= "</li><li>Included drugs: ";
+                    $echo_stmt .= $item->$included_drugs;
                 }
                 $echo_stmt .= "<li>Published in ";
                 $echo_stmt .= $item->$publish;

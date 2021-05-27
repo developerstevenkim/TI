@@ -87,7 +87,7 @@ if(isset($_POST['search'])){
                         <div class="panel-heading" role="tab" id="headingNews">
                               <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNews" aria-expanded="false" aria-controls="collapseNews">
-                                          Newsletter from Therapeutics Initiative
+                                          Therapeutics Initiative Letters
                                     </a>
                               </h4>
                         </div>
@@ -115,7 +115,7 @@ if(isset($_POST['search'])){
                         <div class="panel-heading" role="tab" id="headingAdv">
                               <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseAdv" aria-expanded="false" aria-controls="collapseAdv">
-                                          Advisory data from SAFER Project
+                                          Advisories From SAFER Project
                                     </a>
                               </h4>
                         </div>
@@ -135,7 +135,7 @@ if(isset($_POST['search'])){
                         <div class="panel-heading" role="tab" id="headingPharma">
                               <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePharma" aria-expanded="false" aria-controls="collapsePharma">
-                                          Pharmacare Data from Health Canada
+                                          PharmaCare and Health Canada Data
                                     </a>
                               </h4>
                         </div>

@@ -72,7 +72,7 @@ if(isset($_POST['search'])){
       #===============================================
       # Display input field value and searchResult's message attribute
       #===============================================
-      echo "<h4 style=text-align:center;>Showing result for
+      echo "<h4 style=text-align:center;>Showing results for
                    <span style='color:red'>$input</span>.";
       echo "<h4 style=text-align:center;> $message </h4>";
       echo "<hr/";

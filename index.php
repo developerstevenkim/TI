@@ -75,7 +75,7 @@ if(isset($_POST['search'])){
       echo "<h4 style=text-align:center;>Showing results for
                    <span style='color:red'>$input</span>.";
       echo "<h4 style=text-align:center;> $message </h4>";
-      echo "<hr/";
+      echo "<hr/>";
 
       #===============================================
       # Create Newsletter Table

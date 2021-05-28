@@ -144,7 +144,6 @@ final class SearchResult
             while(($element = current($table_column)) !== FALSE) {
                 $current_column = key($table_column);
                 array_push($column_names, key($table_column));
-                $current_column = strtoupper($current_column);
                 $echo_stmt .= "<th>$current_column</th>";
                 next($table_column);
             }
@@ -155,7 +154,7 @@ final class SearchResult
                 $echo_stmt .= "<tr>";
                 foreach($column_names as $column) {
                     $current_column = $item->{$column};
-                    if ($column == "url" || ($column == "Special Authority Link" && $current_column != "")) {
+                    if ($column == "URL" || ($column == "Special Authority Link" && $current_column != "")) {
                         $echo_stmt .= "<td><a href='$current_column' title='$current_column' target='_blank'>
                         <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' class='bi bi-link' viewBox='0 0 16 16'>
                         <path d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/>

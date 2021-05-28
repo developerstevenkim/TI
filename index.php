@@ -142,6 +142,7 @@ if(isset($_POST['search'])){
 
                         <div id="collapsePharma" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPharma">
                               <div class="panel-body">
+                                    <h5 style="margin-bottom: 10px;"><strong>Note:</strong> "Date Approved" column is the date a drug was approved by Health Canada.</h5>
             ';
             echo $echo_stmt;
             $searchResult->creatingPharmacareTable();

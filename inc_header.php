@@ -34,4 +34,4 @@
     <!----------------------------->
     <!------ Web app's width ------>
     <!----------------------------->
-    <div style="width: 80%; margin-left: auto; margin-right: auto;">
+    <div style="width: 93%; margin-left: auto; margin-right: auto;">

@@ -9,7 +9,7 @@ include("./SearchResult.php");
 <table style="width:100%; margin-top:10px;">
       <tr>
             <td>
-                  <h2 style="margin:0px;">-Therapeutics Initiative Assistant-</h2>
+                  <h2 style="margin:0px;">Therapeutics Initiative Assistant</h2>
             </td>
             <td>
                   <a href="https://dev.tiapp.org/newsletters/" target="_blank">
